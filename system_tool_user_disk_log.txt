@@ -1,0 +1,37 @@
+#!/bin/bash
+
+while true; do
+    echo "----------------------------"
+    echo "   CONG CU QUAN TRI LINUX   "
+    echo "1. Kiem tra User ton tai"
+    echo "2. Xem dung luong dia"
+    echo "3. Liet ke file log"
+    echo "0. Thoat"
+    read -p "Chon chuc nang: " chon
+
+    case $chon in
+        1)
+            read -p "Nhap ten User can kiem tra: " user
+            # Kiem tra trong file /etc/passwd 
+            if grep -q "^$user:" /etc/passwd; then
+                echo "User '$user' CO ton tai trên he thong."
+            else
+                echo "User '$user' KHONG ton tai."
+            fi
+            ;;
+        2)
+            df -h | grep '^/dev/' # Chi hien thi cac o dia vat ly
+            ;;
+        3)
+            echo "Cac file .log trong /var/log:"
+            ls /var/log/*.log 2>/dev/null || echo "Khong tim thay file log."
+            ;;
+        0)
+            echo "Tam biet!"
+            break
+            ;;
+        *)
+            echo "Lua chon sai, vui long nhap lai."
+            ;;
+    esac
+done

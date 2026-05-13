@@ -1,0 +1,35 @@
+#!/bin/bash
+
+echo "CHUONG TRINH QUAN LY THU MUC"
+echo "1. Tao thu muc moi"
+echo "2. Xoa thu muc hien co"
+echo "0. Thoat"
+read -p "Moi ban chon (0-2): " chon
+
+case $chon in
+    1)
+        read -p "Nhap ten thu muc muon tao: " folder
+        if [ -d "$folder" ]; then
+            echo "Thong bao: Thu muc '$folder' da ton tai. Khong can tao."
+        else
+            mkdir "$folder"
+            echo "Da tao thu muc '$folder' thanh cong."
+        fi
+        ;;
+    2)
+        read -p "Nhap ten thu muc muon xoa: " folder
+        if [ -d "$folder" ]; then
+            rmdir "$folder"
+            echo "Da xoa thu muc '$folder' thanh cong."
+        else
+            echo "Loi: Thu muc '$folder' khong ton tai để xoa."
+        fi
+        ;;
+    0)
+        echo "Tam biet!"
+        exit 0
+        ;;
+    *)
+        echo "Lua chon khong hop le."
+        ;;
+esac

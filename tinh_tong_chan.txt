@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Duong dan luu file
+FILE_OUT="tong.txt"
+
+echo "--- Chuong trinh tinh tong so chan ---" > $FILE_OUT
+
+# 1. Kiem tra so luong doi so (> 3)
+if [ $# -le 3 ]; then
+    echo "Loi: So luong doi so ($#) khong du. Can nhieu hon 3 so." >> $FILE_OUT
+    echo "Loi: Can truyen vao nhieu hon 3 doi so."
+    exit 1
+fi
+
+sum=0
+count=0
+
+# 2. Vong lap duyet qua cac doi so
+for num in "$@"
+do
+    # Kiem tra so chan
+    if [ $((num % 2)) -eq 0 ]; then
+        sum=$((sum + num))
+        count=$((count + 1))
+    fi
+done
+
+# 3. Ghi ket qua vao file
+echo "So luong cac doi so duoc truyen vao: $# so" >> $FILE_OUT
+echo "So luong so chan tim thay: $count" >> $FILE_OUT
+echo "Tong cac so chan la: $sum" >> $FILE_OUT
+
+echo "Da tinh xong. Ket qua luu tai $FILE_OUT"

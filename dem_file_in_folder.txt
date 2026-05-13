@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# 1. Kiem tra doi so
+if [ $# -ne 2 ]; then
+    echo "$(date): Thieu doi so. Can truyen [thu_muc] và [duoi_file]" >> error_log.txt
+    echo "Loi: Vui long truyen du 2 doi so."
+    exit 1
+fi
+
+FOLDER=$1
+EXT=$2
+OUT_DIR="$HOME/Desktop/MAX"
+mkdir -p "$OUT_DIR"
+
+# 2. Kiem tra thu muc co ton tai khong
+if [ -d "$FOLDER" ]; then
+    # Tim file co duoi tuong ung va dem dong
+    count=$(ls "$FOLDER"/*."$EXT" 2>/dev/null | wc -l)
+    
+    echo "Thu muc kiem tra: $FOLDER" > "$OUT_DIR/thongke.txt"
+    echo "So luong file $EXT tim thay la: $count" >> "$OUT_DIR/thongke.txt"
+    echo "Da ghi ket qua vao $OUT_DIR/thongke.txt"
+else
+    echo "Loi: Duong dan $FOLDER khong phai la thu muc."
+fi

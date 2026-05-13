@@ -1,0 +1,37 @@
+#!/bin/bash
+
+while true; do
+    echo "========= MENU QUAN TRI ========="
+    echo "1. Tao User moi & cap quyen Sudo"
+    echo "2. Doi chu so huu (Chown)"
+    echo "3. Nen thu muc Documents/Data"
+    echo "0. Thoat"
+    read -p "Chon: " chon
+
+    case $chon in
+        1)
+            read -p "Nhap ten user: " username
+            if id "$username" &>/dev/null; then
+                echo "Loi: User $username da ton tai!"
+            else
+                read -s -p "Nhap mat khau: " password
+                echo
+                sudo useradd -m -G sudo "$username"
+                echo "$username:$password" | sudo chpasswd
+                echo "Da tao user $username thanh cong."
+            fi
+            ;;
+        2)
+            read -p "Nhap ten file: " filename
+            read -p "Nhap ten user moi: " user_moi
+            sudo chown "$user_moi" "$filename" && echo "Da doi chu so huu sang $user_moi"
+            ;;
+        3)
+            mkdir -p "$HOME/Desktop/Backup"
+            tar -czf "$HOME/Desktop/Backup/Backup_Data.tar.gz" -C "$HOME/Documents" Data
+            echo "Da nen va sao luu vao Desktop/Backup"
+            ;;
+        0) exit 0 ;;
+        *) echo "Chon sai!" ;;
+    esac
+done

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+DIR="$HOME/Desktop/TINH_TOAN"
+mkdir -p "$DIR"
+
+# 1. Kiem tra so luong doi so >= 4
+if [ $# -lt 4 ]; then
+    echo "Loi: Ban chi nhap $# so. Can it nhat 4 so." > loi.txt
+    echo "Yeu cau it nhat 4 doi so. Xem file loi.txt"
+    exit 1
+fi
+
+tong=0
+# 2. Duyet danh sach so
+for n in "$@"
+do
+    # Kiem tra so le (chia 2 du khac 0)
+    if [ $((n % 2)) -ne 0 ]; then
+        tong=$((tong + n))
+    fi
+done
+
+# 3. Ghi ket qua
+echo "Chuong trinh tinh tong so le" > "$DIR/ketqua_le.txt"
+echo "Cac so da nhap: $@" >> "$DIR/ketqua_le.txt"
+echo "Tong cac so le la: $tong" >> "$DIR/ketqua_le.txt"
+echo "Da xong. Ket qua tai $DIR/ketqua_le.txt"

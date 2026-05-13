@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# 1. Khai bao
+DIR_PATH="$HOME/Desktop/MAX"
+FILE_PATH="$DIR_PATH/max.txt"
+
+# 2. Tao thu muc neu chua ton tai
+mkdir -p "$DIR_PATH"
+
+echo "Chuong trinh tim so max" >> "$FILE_PATH"
+
+# 3. Kiem tra so luong doi so
+if [ $# -lt 3 ]; then
+    echo "So luong cac doi so duoc truyen vao: $# so. Khong hop le." >> "$FILE_PATH"
+    echo "Loi: So luong doi so phai nhieu hon 3."
+    exit 1
+fi
+
+# 4. Thuat toan tim Max
+max=$1
+for num in "$@"; do
+    if [ "$num" -gt "$max" ]; then
+        max=$num
+    fi
+done
+
+# 5. Ghi ket qua vao file
+echo "So luong cac doi so duoc truyen vao: $# so" >> "$FILE_PATH"
+echo "Vay max la: $max" >> "$FILE_PATH"
+
+echo "Da thuc hien xong. Kiem tra tai: $FILE_PATH"
+
+#./findmax.sh 5 12 23 1 9 4 5 6 7
+# Chạy thu loi ./find_max.sh 10 20
