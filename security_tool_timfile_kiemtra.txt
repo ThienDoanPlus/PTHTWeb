@@ -1,0 +1,38 @@
+#!/bin/bash
+
+while true; do
+    echo "========= SECURITY MENU ========="
+    echo "1. Thiet lap quyen rieng tu (700)"
+    echo "2. Tim tap tin an (file .)"
+    echo "3. Kiem tra Uptime & RAM"
+    echo "0. Thoat"
+    read -p "Chon chuc nang: " chon
+
+    case $chon in
+        1)
+            read -p "Nhap ten file: " fname
+            if [ -f "$fname" ]; then
+                chmod 700 "$fname"
+                echo "Da thiet lap: Chi chu so huu moi co quyen tren $fname"
+            else
+                echo "Loi: File khong ton tai."
+            fi
+            ;;
+        2)
+            read -p "Nhap duong dan thu muc: " dname
+            if [ -d "$dname" ]; then
+                echo "Cac file an tim thay:"
+                ls -a "$dname" | grep "^\."
+            else
+                echo "Loi: Duong dan khong hop le."
+            fi
+            ;;
+        3)
+            echo "--- Thong tin he thong ---"
+            uptime
+            free -m
+            ;;
+        0) break ;;
+        *) echo "Lua chon sai!" ;;
+    esac
+done

@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import os
 
 file_name = input("Nhap ten tap tin muon doc: ")
@@ -12,23 +15,27 @@ else:
         num_lines = len(lines)
         all_text = "".join(lines)
         num_words = len(all_text.split())
-        # Sửa dòng này để tránh lỗi Syntax:
+        # Loại bỏ tất cả các loại khoảng trắng (space, tab, newline)
         num_chars_no_space = len(all_text.replace(" ", "").replace("\n", "").replace("\t", ""))
 
-        print(f"\n--- {n} dong dau tien ---")
-        for line in lines[:n]:
+        # Điều chỉnh n nếu n lớn hơn tổng số dòng
+        dong_thuc_te = n if n <= num_lines else num_lines
+
+        print(f"\n--- {dong_thuc_te} dong dau tien ---")
+        for line in lines[:dong_thuc_te]:
             print(line.strip())
 
-        # Ghi ket qua
+        # Ghi ket qua vào file sử dụng f-string cho chuyên nghiệp
         with open("ketqua.txt", "w", encoding='utf-8') as res:
-            res.write("Thong tin tap tin " + file_name + "\n")
-            res.write("So luong dong: " + str(num_lines) + " dong\n")
-            res.write("So luong tu: " + str(num_words) + " tu\n")
-            res.write("So ky tu (khong khoang trang): " + str(num_chars_no_space) + " ky tu\n")
-            res.write(str(n) + " dong dau tien cua file " + file_name + "\n")
+            res.write(f"Thong tin tap tin {file_name}\n")
+            res.write(f"So luong dong: {num_lines} dong\n")
+            res.write(f"So luong tu: {num_words} tu\n")
+            res.write(f"So ky tu (khong khoang trang): {num_chars_no_space} ky tu\n")
+            res.write(f"{dong_thuc_te} dong dau tien cua file {file_name}\n")
             res.write("Noi dung:\n")
-            for line in lines[:n]:
+            for line in lines[:dong_thuc_te]:
                 res.write(line)
+                
         print("\nDa luu ket qua vao ketqua.txt")
     except ValueError:
         print("Loi: n phai la mot so nguyen!")
